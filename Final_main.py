@@ -11,6 +11,7 @@ from fish_classes import AtlanticBass, Clownfish, HighFinBandedShark
 from fisher_cat_class import FisherCat
 
 
+
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
@@ -35,10 +36,12 @@ clownfish = Clownfish(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 100)
 high_fin_banded_shark = HighFinBandedShark(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGHT // 2 + 75)
 
 #Create cat fisherman
-cat = FisherCat(150, 100, WINDOW_WIDTH)
+cat = FisherCat(150, 100, WINDOW_WIDTH, WINDOW_HEIGHT)
 
 
 pygame.key.set_repeat(True)
+
+
 while run:
     pygame.display.update()
     for event in pygame.event.get():
@@ -50,8 +53,10 @@ while run:
             elif event.key == pygame.K_a:
                 cat.move_left()
             elif event.key == pygame.K_e:
-                cat.cast()
-
+                cat.ready_cast()
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_e:
+                cat.cast() 
     # Update fish positions
     atlantic_bass.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     clownfish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
