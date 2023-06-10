@@ -49,8 +49,8 @@ class FisherCat:
             self.bob_rect.center = (self.xpos, self.ypos)
 
 
-    def cast(cls):
+    def cast(self):
         '''
         Casts the fishing rod 
         '''
-        cls.bob_rect.center = (cls.xpos, cls.ypos + 400)
+        self.bob_rect.center = (self.xpos, self.ypos + 400)
