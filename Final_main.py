@@ -8,7 +8,7 @@ This file contains the main build for the fishing game.
 
 import pygame
 from fish_classes import AtlanticBass, Clownfish, HighFinBandedShark
-from fisher_cat_class import FisherCat
+from fisher_cat_class import FisherCat, FishingRod
 
 
 
@@ -36,8 +36,7 @@ clownfish = Clownfish(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 100)
 high_fin_banded_shark = HighFinBandedShark(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGHT // 2 + 75)
 
 #Create cat fisherman
-Cat = FisherCat(150, 100, WINDOW_WIDTH)
-
+cat = FisherCat(150, 100, WINDOW_WIDTH)
 
 
 pygame.key.set_repeat(True)
@@ -48,17 +47,17 @@ while run:
             run = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
-                Cat.move_right()
+                cat.move_right()
             elif event.key == pygame.K_a:
-                Cat.move_left()
+                cat.move_left()
+            elif event.key == pygame.K_e:
+                cat.cast()
 
     # Update fish positions
     atlantic_bass.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     clownfish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     high_fin_banded_shark.update(WINDOW_WIDTH, WINDOW_HEIGHT)
 
-
-    
     # Draw the background image
     window.blit(background_image, (0, 0))
 
@@ -66,7 +65,7 @@ while run:
     atlantic_bass.draw(window)
     clownfish.draw(window)
     high_fin_banded_shark.draw(window)
-    Cat.draw(window)
+    cat.draw(window)
     # Update the display
     pygame.display.flip()
 
