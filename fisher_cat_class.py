@@ -1,23 +1,31 @@
-'''This file contains the class for the fishing 
+'''
+This file contains the class for the fishing 
 cat player character
 '''
 
 import pygame
+
+
 
 class FisherCat:
     '''
     This class contains the methods and attributes 
     of the fisher man cat
     '''
-    def __init__(self,x,y, window_x) -> None:
+    def __init__(self,x,y, window_x, window_y) -> None:
         self.fishing_bob = pygame.image.load("fishing_bob.png")
         self.image = pygame.image.load("Ship_full.png")
+        
         self.rect = self.image.get_rect()
         self.bob_rect = self.fishing_bob.get_rect()
+        
         self.xpos = x
         self.ypos = y
+        
+        self.cast_distance = 0
         self.win_x = window_x
-    
+        self.win_y = window_y
+
     def draw(self, screen):
         '''
         Draws the fisher cat object onto the screen
@@ -49,8 +57,19 @@ class FisherCat:
             self.bob_rect.center = (self.xpos, self.ypos)
 
 
+    def ready_cast(self):
+        '''
+        readies the cast by increasing the distance the bob is thrown
+        while read_cast is being called. 
+        '''
+        self.cast_distance += 1
+        if self.cast_distance >= self.win_y:
+            self.cast_distance = self.win_y - 90
+        print(self.cast_distance)
+
     def cast(self):
         '''
         Casts the fishing rod 
         '''
-        self.bob_rect.center = (self.xpos, self.ypos + 400)
+        self.bob_rect.center = (self.xpos, self.ypos + self.cast_distance)
+        self.cast_distance = 0
