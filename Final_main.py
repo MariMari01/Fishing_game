@@ -8,6 +8,9 @@ This file contains the main build for the fishing game.
 
 import pygame
 from fish_classes import AtlanticBass, Clownfish, HighFinBandedShark
+from fisher_cat_class import FisherCat
+
+
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -32,28 +35,29 @@ atlantic_bass = AtlanticBass(WINDOW_WIDTH // 2 - 100, WINDOW_HEIGHT // 2 + 150)
 clownfish = Clownfish(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 100)
 high_fin_banded_shark = HighFinBandedShark(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGHT // 2 + 75)
 
+#Create cat fisherman
+Cat = FisherCat(150, 100, WINDOW_WIDTH)
 
 
 
-
+pygame.key.set_repeat(True)
 while run:
     pygame.display.update()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_d:
+                Cat.move_right()
+            elif event.key == pygame.K_a:
+                Cat.move_left()
 
     # Update fish positions
     atlantic_bass.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     clownfish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     high_fin_banded_shark.update(WINDOW_WIDTH, WINDOW_HEIGHT)
 
-    # Draw the resized background image
-    # window.blit(frame_0, (0, 0))
-    # window.blit(frame_1, (75, 0))
-    # window.blit(frame_2, (150, 0))
 
-    # Display sprite
-    # window.blit(sprite_sheet_image, (0,0))
     
     # Draw the background image
     window.blit(background_image, (0, 0))
@@ -62,7 +66,7 @@ while run:
     atlantic_bass.draw(window)
     clownfish.draw(window)
     high_fin_banded_shark.draw(window)
-
+    Cat.draw(window)
     # Update the display
     pygame.display.flip()
 
