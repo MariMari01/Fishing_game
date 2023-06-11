@@ -63,13 +63,14 @@ while run:
     # Check for collision between the fishing bob and the fish
     if cat.bob_rect.colliderect(atlantic_bass.rect):
         scoreboard.increase_score(atlantic_bass.points)
-        
+        cat.reset_bob()
     if cat.bob_rect.colliderect(clownfish.rect):
         scoreboard.increase_score(clownfish.points)
-        
+        cat.reset_bob()        
     if cat.bob_rect.colliderect(high_fin_banded_shark.rect):
         scoreboard.increase_score(high_fin_banded_shark.points)
-        
+        cat.reset_bob()
+
     # Update fish positions
     atlantic_bass.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     clownfish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
