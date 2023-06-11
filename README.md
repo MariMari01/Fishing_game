@@ -10,7 +10,9 @@ TO DO:
 
 Make fishing 'mini-game' when a fish is caught
 
-Addd a Title screen
+Make fish Encyclopedia
+
+Add a Title screen
 
 Add cat sprites + cat selection?
 
