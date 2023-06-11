@@ -13,17 +13,17 @@ class FisherCat:
     of the fisher man cat
     '''
     def __init__(self,x,y, window_x, window_y) -> None:
-        self.fishing_bob = pygame.image.load("fishing_bob.png")
+        self.fishing_bob = pygame.image.load("fishing_hook.png")
         self.marker = pygame.image.load("marker.png")
         self.image = pygame.image.load("Ship_full.png")
-        
+
         self.rect = self.image.get_rect()
         self.bob_rect = self.fishing_bob.get_rect()
         self.marker_rect = self.marker.get_rect()
 
         self.xpos = x
         self.ypos = y
-        
+
         self.cast_distance = 0
         self.win_x = window_x
         self.win_y = window_y
