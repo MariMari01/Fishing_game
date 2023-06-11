@@ -38,6 +38,8 @@ high_fin_banded_shark = HighFinBandedShark(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGH
 #Create cat fisherman
 cat = FisherCat(150, 100, WINDOW_WIDTH, WINDOW_HEIGHT)
 
+# Create the scoreboard object
+scoreboard = Scoreboard()
 
 pygame.key.set_repeat(True)
 
@@ -57,6 +59,17 @@ while run:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_e:
                 cat.cast() 
+                
+    # Check for collision between the fishing bob and the fish
+    if cat.bob_rect.colliderect(atlantic_bass.rect):
+        scoreboard.increase_score(atlantic_bass.points)
+        
+    if cat.bob_rect.colliderect(clownfish.rect):
+        scoreboard.increase_score(clownfish.points)
+        
+    if cat.bob_rect.colliderect(high_fin_banded_shark.rect):
+        scoreboard.increase_score(high_fin_banded_shark.points)
+        
     # Update fish positions
     atlantic_bass.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     clownfish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -70,6 +83,10 @@ while run:
     clownfish.draw(window)
     high_fin_banded_shark.draw(window)
     cat.draw(window)
+    
+    # Draw the scoreboard
+    scoreboard.draw(window)
+    
     # Update the display
     pygame.display.flip()
 
