@@ -7,6 +7,7 @@ import pygame
 
 
 
+
 class FisherCat:
     '''
     This class contains the methods and attributes 
@@ -47,6 +48,7 @@ class FisherCat:
             self.xpos -= 0.5
             self.rect.center = (self.xpos, self.ypos)
             self.bob_rect.center = (self.xpos, self.ypos)
+            self.marker_rect.center = (self.xpos, self.ypos)
 
     def move_right(self):
         '''
@@ -59,13 +61,14 @@ class FisherCat:
             self.rect.center = (self.xpos, self.ypos)
             self.rect.center = (self.xpos, self.ypos)
             self.bob_rect.center = (self.xpos, self.ypos)
-
+            self.marker_rect.center = (self.xpos, self.ypos)
 
     def ready_cast(self):
         '''
         readies the cast by increasing the distance the bob is thrown
         while read_cast is being called. 
         '''
+        self.bob_rect.center = (self.xpos, self.ypos)
         self.cast_distance += 1
         if self.cast_distance >= self.win_y:
             self.cast_distance = self.win_y
@@ -75,5 +78,6 @@ class FisherCat:
         '''
         Casts the fishing rod 
         '''
+        self.marker_rect.center = (self.xpos, self.ypos)
         self.bob_rect.center = (self.xpos, self.ypos + self.cast_distance)
         self.cast_distance = 0
