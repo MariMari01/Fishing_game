@@ -7,7 +7,6 @@ import pygame
 
 
 
-
 class FisherCat:
     '''
     This class contains the methods and attributes 
@@ -62,6 +61,10 @@ class FisherCat:
             self.rect.center = (self.xpos, self.ypos)
             self.bob_rect.center = (self.xpos, self.ypos)
             self.marker_rect.center = (self.xpos, self.ypos)
+
+    def reset_bob(self):
+        self.bob_rect.center = (self.xpos, self.ypos)
+
 
     def ready_cast(self):
         '''
