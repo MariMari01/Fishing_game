@@ -19,23 +19,24 @@ class Fish:
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
-    
+
 class AtlanticBass(Fish):
     def __init__(self, x, y):
-        super().__init__(x, y, speed=3, points=10)
+        super().__init__(x, y-50, speed=2, points=5)
         pygame.image.load('blue_fish.png')  # Replace 'red_snapper.png' with the actual image file name
 
 
 class Clownfish(Fish):
     def __init__(self, x, y):
-        super().__init__(x, y, speed=5, points=15)
+        super().__init__(x, y-200, speed=4, points=10)
         self.image = pygame.image.load('orange_fish.png')  # Replace 'cod.png' with the actual image file name
 
 
 class HighFinBandedShark(Fish):
     def __init__(self, x, y):
-        super().__init__(x, y, speed=2, points=5)
+        super().__init__(x, y+200, speed=6, points=15)
         self.image = pygame.image.load('black_fish.png')  # Replace 'moonfish.png' with the actual image file name
+
 
 
 # Get image from sprite sheet
