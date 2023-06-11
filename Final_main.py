@@ -9,7 +9,7 @@ This file contains the main build for the fishing game.
 import pygame
 from fish_classes import AtlanticBass, Clownfish, HighFinBandedShark
 from fisher_cat_class import FisherCat
-
+from score import Scoreboard
 
 
 WINDOW_WIDTH = 800
