@@ -42,7 +42,7 @@ class Fish:
         self.x += self.speed
         if self.x > screen_width:
             self.x = 0
-            rand_int = random.randint(-250, 170)
+            rand_int = random.randint(-180, 170)
             self.y = 383 + rand_int
         self.rect.center = (self.x, self.y)
 
