@@ -67,10 +67,10 @@ def fish_caught_sound():
     pygame.mixer.Channel(0).play(pygame.mixer.Sound(sound_effect))
 
 # Create fish objects
-common_fish = Common(WINDOW_WIDTH // 2 - 100, WINDOW_HEIGHT // 2 + 150)
-uncommon_fish = Uncommon(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 100)
-rare_fish = Rare(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGHT // 2 + 75)
-ultimate_catch = UltimateCatch(WINDOW_WIDTH // 2 +100, WINDOW_HEIGHT // 2 +75)
+common_fish = Common(WINDOW_WIDTH // 2 - 100, WINDOW_HEIGHT // 2 - 80)
+uncommon_fish = Uncommon(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 70)
+rare_fish = Rare(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGHT // 2 + 260)
+ultimate_catch = UltimateCatch(WINDOW_WIDTH // 2 +100, WINDOW_HEIGHT // 2 + 150)
 
 #Create cat fisherman
 cat = FisherCat(150, 100, WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -125,6 +125,9 @@ while run:
     window.blit(background_image, (0, 0))
 
     # Draw the fish
+    # -----------------------------------------------------------
+    # Uncomment ultimate_catch to see how it looks on screen!
+    # -----------------------------------------------------------
     common_fish.draw(window)
     uncommon_fish.draw(window)
     rare_fish.draw(window)
@@ -140,3 +143,4 @@ while run:
     # Control the frame rate
     clock.tick(60)
 pygame.quit()
+
