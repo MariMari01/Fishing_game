@@ -16,5 +16,5 @@ Add a Title screen
 
 Add cat sprites + cat selection?
 
-Add sound + music
+[x]Add sound + music
 
