@@ -6,13 +6,11 @@ This file contains the main build for the fishing game.
 
 import pygame
 
-from pathlib import Path
-from os import listdir
-
 from fish_classes import Common, Uncommon, Rare
 from ultimate_catch import UltimateCatch
 from fisher_cat_class import FisherCat
 from score import Scoreboard
+from model import folder_search
 
 pygame.init()
 pygame.mixer.init()
@@ -26,26 +24,34 @@ run = True
 pygame.display.set_caption('Fish Game')
 clock = pygame.time.Clock()
 
-def folder_search(folder_name, file_name):
-    """Function creeates an absolute path for a folder
-    and searches the folder for a file.
+
+def cat_animation(x,y):
+    """Animates the cat while it casts the fishing line
 
     Args:
-        folder_name (folder file): A folder that holds files for the game
-        file_name (.png or .wav): A file that will be used in the game,
-        either a .png or a .wav file
-
-    Returns:
-        str: The absolute path and file name are returned as strings.
+        x (object.rect.left): The x coordinate of the cat.
+        y (object.rect.top): The y coordinate of the cat.
     """
-    path = Path(folder_name)
-    abs_path = Path(path).resolve()
-    for images in listdir(abs_path):
-        if images == file_name:
-            found_image = images
-    str_abs_path = str(abs_path)
-    file_abs = str_abs_path + "/" + found_image # Concatonates the file to the absolute path
-    return file_abs
+    ship_cat1 = folder_search("misc_sprites_and_background", "ship_cat_1.png")
+    ship_cat2 = folder_search("misc_sprites_and_background", "ship_cat_2.png")
+    ship_cat3 = folder_search("misc_sprites_and_background", "ship_cat_3.png")
+
+    cat_ship_sprite = [pygame.image.load(ship_cat2),
+                        pygame.image.load(ship_cat3),
+                        pygame.image.load(ship_cat2),
+                        pygame.image.load(ship_cat1)]
+    clock = pygame.time.Clock()
+    value = 0
+    run = True
+    while run:
+        if value >= len(cat_ship_sprite):
+            value = 0
+            run = False
+        clock.tick(len(cat_ship_sprite))
+        image = cat_ship_sprite[value]
+        window.blit(image, (x,y))
+        pygame.display.update()
+        value += 1
 
 # Load the background image
 bg_img = folder_search("misc_sprites_and_background", "background.png")
@@ -95,6 +101,7 @@ while run:
                 cat.ready_cast()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_e:
+                cat_animation(cat.rect.left, cat.rect.top)
                 cat.cast()
 
     # Check for collision between the fishing bob and the fish
