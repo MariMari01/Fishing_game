@@ -2,10 +2,30 @@
 This file contains the class for the fishing 
 cat player character
 '''
-
+from pathlib import Path
+from os import listdir
 import pygame
 
+def folder_search(folder_name, file_name):
+    """Function creeates an absolute path for a folder
+    and searches the folder for a file.
 
+    Args:
+        folder_name (folder file): A folder that holds files for the game
+        file_name (.png or .wav): A file that will be used in the game,
+        either a .png or a .wav file
+
+    Returns:
+        str: The absolute path and file name are returned as strings.
+    """
+    path = Path(folder_name)
+    abs_path = Path(path).resolve()
+    for images in listdir(abs_path):
+        if images == file_name:
+            found_image = images
+    str_abs_path = str(abs_path)
+    file_abs = str_abs_path + "/" + found_image # Concatonates the file to the absolute path
+    return file_abs
 
 class FisherCat:
     '''
@@ -13,13 +33,15 @@ class FisherCat:
     of the fisher man cat
     '''
     def __init__(self,x,y, window_x, window_y) -> None:
-        self.fishing_bob = pygame.image.load("fishing_hook.png")
-        self.marker = pygame.image.load("marker.png")
-        self.image = pygame.image.load("Ship_full.png")
+        self.fishing_hook = folder_search("misc_sprites_and_background", "fishing_hook.png")
+        self.fishing_bob = pygame.image.load(self.fishing_hook)
+
+        self.cat_ship = folder_search("misc_sprites_and_background", "Ship_full.png")
+        self.image = pygame.image.load(self.cat_ship)
 
         self.rect = self.image.get_rect()
         self.bob_rect = self.fishing_bob.get_rect()
-        self.marker_rect = self.marker.get_rect()
+
 
         self.xpos = x
         self.ypos = y
@@ -33,7 +55,6 @@ class FisherCat:
         Draws the fisher cat object onto the screen
         '''
         screen.blit(self.fishing_bob, self.bob_rect)
-        screen.blit(self.marker, self.marker_rect)
         screen.blit(self.image, self.rect)
 
 
@@ -47,7 +68,7 @@ class FisherCat:
             self.xpos -= 0.5
             self.rect.center = (self.xpos, self.ypos)
             self.bob_rect.center = (self.xpos, self.ypos)
-            self.marker_rect.center = (self.xpos, self.ypos)
+
 
     def move_right(self):
         '''
@@ -60,7 +81,7 @@ class FisherCat:
             self.rect.center = (self.xpos, self.ypos)
             self.rect.center = (self.xpos, self.ypos)
             self.bob_rect.center = (self.xpos, self.ypos)
-            self.marker_rect.center = (self.xpos, self.ypos)
+
 
     def reset_bob(self):
         self.bob_rect.center = (self.xpos, self.ypos)
@@ -75,12 +96,13 @@ class FisherCat:
         self.cast_distance += 1
         if self.cast_distance >= self.win_y:
             self.cast_distance = self.win_y
-        self.marker_rect.center = (self.xpos, self.ypos + self.cast_distance)
+
 
     def cast(self):
         '''
         Casts the fishing rod 
         '''
-        self.marker_rect.center = (self.xpos, self.ypos)
+
         self.bob_rect.center = (self.xpos, self.ypos + self.cast_distance)
         self.cast_distance = 0
+
