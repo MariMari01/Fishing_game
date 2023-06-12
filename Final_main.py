@@ -128,7 +128,7 @@ while run:
     common_fish.draw(window)
     uncommon_fish.draw(window)
     rare_fish.draw(window)
-    ultimate_catch.draw(window)
+    # ultimate_catch.draw(window)
     cat.draw(window)
 
     # Draw the scoreboard
@@ -140,4 +140,3 @@ while run:
     # Control the frame rate
     clock.tick(60)
 pygame.quit()
-
