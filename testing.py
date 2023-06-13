@@ -99,22 +99,16 @@ while run:
             counter -= 1
             text = font.render("Time: " + str(counter), True, text_color)
             if counter == 0 and scoreboard.score < 1000:
-                # -----------------------------
-                # LOOK HERE FOR GAME OVER STUFF
-                # -----------------------------
                 pygame.time.set_timer(timer_event, 0)
                 music_end()
                 game_over.draw(window)
-            if counter == 0 and scoreboard.score >= 10:
-                # -----------------------------
-                # LOOK HERE FOR ULTIMATE CATCH ISSUE
-                # -----------------------------
+            if scoreboard.score >= 10:
                 pygame.time.set_timer(timer_event, 0)
                 music_end()
                 ultimate_catch.draw(window)
                 ultimate_catch.update(WINDOW_WIDTH,WINDOW_HEIGHT)
                 final_music()
-        if not catching and event.type == pygame.KEYDOWN:
+        if not catching and counter > 0 and event.type  == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 cat.move_right()
             elif event.key == pygame.K_a:
