@@ -1,7 +1,7 @@
-import pygame
-import random
 from pathlib import Path
 from os import listdir
+import pygame
+import random
 
 class Fish:
     def __init__(self, x, y, speed, points):
