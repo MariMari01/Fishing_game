@@ -71,8 +71,8 @@ class FisherCat:
         '''
         self.bob_rect.center = (self.xpos, self.ypos)
         self.cast_distance += 1
-        if self.cast_distance >= self.win_y:
-            self.cast_distance = self.win_y
+        if self.cast_distance >= self.win_y - self.ypos:
+            self.cast_distance = self.win_y - self.ypos - 30
 
 
     def cast(self):
