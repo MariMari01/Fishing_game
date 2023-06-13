@@ -10,9 +10,9 @@ from fish_classes import Common, Uncommon, Rare
 from ultimate_catch import UltimateCatch
 from fisher_cat_class import FisherCat
 from score import Scoreboard
-from mini_game import mini_game
+#from mini_game import mini_game
 from model import folder_search
-
+from cast_bar import CastBar
 pygame.init()
 pygame.mixer.init()
 
@@ -33,15 +33,13 @@ background_image = pygame.image.load(bg_img)
 background_image = pygame.transform.scale(background_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
 
-
-catching = False
-fish_caught_points = None
+castbar = CastBar()
 # Create fish objects
 common_fish = Common(WINDOW_WIDTH // 2 - 100, WINDOW_HEIGHT // 2 - 80)
 uncommon_fish = Uncommon(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 70)
 rare_fish = Rare(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGHT // 2 + 260)
 ultimate_catch = UltimateCatch(WINDOW_WIDTH // 2 +100, WINDOW_HEIGHT // 2 + 150)
-minigame = mini_game(5)
+#minigame = mini_game(5)
 
 
 
@@ -54,73 +52,62 @@ scoreboard = Scoreboard()
 pygame.key.set_repeat(True)
 background_music()
 
-catch_points = 0
-
 while run:
     pygame.display.update()
 
-    if catching:
-        minigame.draw_minigame_fish(window)
-        if minigame.rectangle.colliderect(minigame.fish_rect):
-            catch_points += 0.5
-
-            print(catch_points)
-        if catch_points >= 100:
-            scoreboard.increase_score(fish_caught_points)
-            fish_caught_sound()
-            catch_points = 0
-            catching = False
-
-        minigame.move_minigame_fish()
-
     for event in pygame.event.get():
-        if catching and event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
-                minigame.move_up(minigame.rectangle)
-            if event.key == pygame.K_s:
-                minigame.move_down(minigame.rectangle)
-
         if event.type == pygame.QUIT:
             run = False
-        if not catching and event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 cat.move_right()
             elif event.key == pygame.K_a:
                 cat.move_left()
             elif event.key == pygame.K_e:
+                castbar.move_up()
                 cat.ready_cast()
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_e:
+                castbar.fill_height = 0
+                castbar.bar_ypos = 215
                 cat_animation(window, cat.rect.left, cat.rect.top)
                 cat.cast()
     # Check for collision between the fishing bob and the fish
     if cat.bob_rect.colliderect(common_fish.rect):
-        catching = True
+
         fish_caught_sound()
-        minigame.speed = 5
+
         fish_caught_points = common_fish.points
         cat.reset_bob()
-
-    if cat.bob_rect.colliderect(uncommon_fish.rect):
-        catching = True
+        scoreboard.increase_score(fish_caught_points)
         fish_caught_sound()
-        minigame.speed = 7
+    if cat.bob_rect.colliderect(uncommon_fish.rect):
+
+        fish_caught_sound()
+
         fish_caught_points = uncommon_fish.points
         cat.reset_bob()
-
-    if cat.bob_rect.colliderect(rare_fish.rect):
-        catching = True
+        scoreboard.increase_score(fish_caught_points)
         fish_caught_sound()
-        minigame.speed = 10
+    if cat.bob_rect.colliderect(rare_fish.rect):
+
+        fish_caught_sound()
+
         fish_caught_points = rare_fish.points
         cat.reset_bob()
-
-    if cat.bob_rect.colliderect(ultimate_catch.rect):
-        catching = True
+        scoreboard.increase_score(fish_caught_points)
         fish_caught_sound()
-        minigame.speed = 15
+    if cat.bob_rect.colliderect(ultimate_catch.rect):
+
+        fish_caught_sound()
+
         fish_caught_points = ultimate_catch.points
         cat.reset_bob()
+        scoreboard.increase_score(fish_caught_points)
+        fish_caught_sound()
+
+
     # Update fish positions
     common_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     uncommon_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -135,14 +122,15 @@ while run:
     # Uncomment ultimate_catch to see how it looks on screen!
     # -----------------------------------------------------------
     common_fish.draw(window)
+    
+
     uncommon_fish.draw(window)
     rare_fish.draw(window)
     #ultimate_catch.draw(window)
     cat.draw(window)
-    
-    minigame.draw(window)
-    if catching:
-        minigame.fill(window)
+    castbar.draw(window)
+    castbar.fill(window)
+
     # Draw the scoreboard
     scoreboard.draw(window)
     # Update the display
