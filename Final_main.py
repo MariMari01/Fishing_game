@@ -5,13 +5,13 @@ This file contains the main build for the fishing game.
 '''
 
 import pygame
-from model import folder_search
 from functions import background_music, fish_caught_sound, cat_animation
 from fish_classes import Common, Uncommon, Rare
 from ultimate_catch import UltimateCatch
 from fisher_cat_class import FisherCat
 from score import Scoreboard
 from mini_game import mini_game
+from model import folder_search
 
 pygame.init()
 pygame.mixer.init()
