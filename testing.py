@@ -17,7 +17,7 @@ pygame.init()
 
 #Clock variables
 clock = pygame.time.Clock()
-counter = 10
+counter = 113
 font = pygame.font.SysFont(None, 36)
 text_color = (255, 255, 255)
 position = (640, 11)
@@ -92,7 +92,6 @@ while run:
             if event.key == pygame.K_s:
                 minigame.move_down(minigame.rectangle)
 
-
         if event.type == pygame.QUIT:
             run = False
         elif event.type == timer_event:
@@ -100,14 +99,8 @@ while run:
             text = font.render("Time: " + str(counter), True, text_color)
             if counter == 0 and scoreboard.score < 1000:
                 pygame.time.set_timer(timer_event, 0)
-                music_end()
                 game_over.draw(window)
-            if scoreboard.score >= 10:
-                pygame.time.set_timer(timer_event, 0)
-                music_end()
-                ultimate_catch.draw(window)
-                ultimate_catch.update(WINDOW_WIDTH,WINDOW_HEIGHT)
-                final_music()
+
         if not catching and counter > 0 and event.type  == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 cat.move_right()
@@ -146,10 +139,12 @@ while run:
         minigame.speed = 15
         fish_caught_points = ultimate_catch.points
         cat.reset_bob()
+        ultimate_catch.game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
     # Update fish positions
     common_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     uncommon_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     rare_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
+    ultimate_catch.update(WINDOW_WIDTH,WINDOW_HEIGHT)
 
     # Draw the background image
     window.blit(background_image, (0, 0))
@@ -162,6 +157,8 @@ while run:
     uncommon_fish.draw(window)
     rare_fish.draw(window)
     cat.draw(window)
+    ultimate_catch.draw(window)
+
 
     minigame.draw(window)
     if catching:
