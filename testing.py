@@ -65,7 +65,7 @@ scoreboard = Scoreboard()
 
 pygame.key.set_repeat(True)
 background_music()
-
+game_is_over = False
 catch_points = 0
 
 while run:
@@ -93,18 +93,22 @@ while run:
                 minigame.move_down(minigame.rectangle)
         if event.type == pygame.QUIT:
             run = False
+
         elif event.type == timer_event:
             counter -= 1
             text = font.render("Time: " + str(counter), True, text_color)
-            if counter == 0 and scoreboard.score < 1000:
+            if counter <= 0 and scoreboard.score < 100:
                 pygame.time.set_timer(timer_event, 0)
                 # ----------------------------------
                 # This is what I need help with
+                game_is_over = True
                 game_over.draw(window)
-            if counter == 0 and scoreboard.score >= 100:
+            if counter <= 0 and scoreboard.score >= 100:
                 # ----------------------------------
                 # This is what I need help with
+                game_is_over = True
                 game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
+
         if not catching and counter > 0 and event.type  == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 cat.move_right()
@@ -150,29 +154,29 @@ while run:
     ultimate_catch.update(WINDOW_WIDTH,WINDOW_HEIGHT)
 
     # Draw the background image
-    window.blit(background_image, (0, 0))
+    if not game_is_over:
+        window.blit(background_image, (0, 0))
 
     # Draw the fish
     # -----------------------------------------------------------
     # Uncomment ultimate_catch to see how it looks on screen!
     # -----------------------------------------------------------
-    common_fish.draw(window)
-    uncommon_fish.draw(window)
-    rare_fish.draw(window)
-    cat.draw(window)
-    ultimate_catch.draw(window)
+        common_fish.draw(window)
+        uncommon_fish.draw(window)
+        rare_fish.draw(window)
+        cat.draw(window)
+        ultimate_catch.draw(window)
 
 
-    minigame.draw(window)
-    if catching:
-        minigame.fill(window)
-    # Draw the scoreboard
-    scoreboard.draw(window)
-    window.blit(text, position)
-    # Update the display
-    pygame.display.flip()
+        minigame.draw(window)
+        if catching:
+            minigame.fill(window)
+        # Draw the scoreboard
+        scoreboard.draw(window)
+        window.blit(text, position)
+        # Update the display
+        pygame.display.flip()
 
     # Control the frame rate
     clock.tick(60)
 pygame.quit()
-
