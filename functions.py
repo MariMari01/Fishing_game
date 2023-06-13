@@ -1,3 +1,4 @@
+from model import folder_search
 from pathlib import Path
 from os import listdir
 import pygame
