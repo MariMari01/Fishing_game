@@ -5,7 +5,7 @@ This file contains the main build for the fishing game.
 '''
 import time
 import pygame
-from functions import folder_search, background_music, fish_caught_sound, music_end, GameOver
+from functions import folder_search, background_music, fish_caught_sound, music_end, GameOver, final_music
 from fish_classes import Common, Uncommon, Rare
 from ultimate_catch import UltimateCatch
 from fisher_cat_class import FisherCat
@@ -98,11 +98,16 @@ while run:
         elif event.type == timer_event:
             counter -= 1
             text = font.render("Time: " + str(counter), True, text_color)
-            if counter == 0:
+            if counter == 0 and scoreboard.score < 1000:
                 pygame.time.set_timer(timer_event, 0)
                 music_end()
                 game_over.draw(window)
-            # if counter == 0 and scoreboard.score >= 1000:
+            if counter == 0 and scoreboard.score >= 10:
+                pygame.time.set_timer(timer_event, 0)
+                music_end()
+                ultimate_catch.draw(window)
+                ultimate_catch.update(WINDOW_WIDTH,WINDOW_HEIGHT)
+                final_music()
         if not catching and event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 cat.move_right()
@@ -145,7 +150,6 @@ while run:
     common_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     uncommon_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     rare_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
-    ultimate_catch.update(WINDOW_WIDTH,WINDOW_HEIGHT)
 
     # Draw the background image
     window.blit(background_image, (0, 0))
@@ -157,7 +161,6 @@ while run:
     common_fish.draw(window)
     uncommon_fish.draw(window)
     rare_fish.draw(window)
-    #ultimate_catch.draw(window)
     cat.draw(window)
 
     minigame.draw(window)
