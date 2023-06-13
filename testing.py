@@ -1,50 +1,152 @@
-import random
-from pathlib import Path
-from os import listdir
+'''
+File: Final_main.py
+Authors: Sarena, Aspen, and Sam
+This file contains the main build for the fishing game. 
+'''
 
-def image_list_from_folder(folder_name):
-    """Function creeates an absolute path for a folder
-    and creates a list of the images found.
+import pygame
 
-    Args:
-        folder_name (folder file): A folder that holds files for the game
-        file_name (.png or .wav): A file that will be used in the game,
-        either a .png or a .wav file
+from functions import folder_search, background_music, fish_caught_sound
+from fish_classes import Common, Uncommon, Rare
+from ultimate_catch import UltimateCatch
+from fisher_cat_class import FisherCat
+from score import Scoreboard
+from mini_game import mini_game
 
-    Returns:
-        str: The absolute path and file name are returned as strings.
-    """
-    path = Path(folder_name)
-    abs_path = Path(path).resolve()
-    file_images = []
-    for images in listdir(abs_path):
-        file_images.append(images)
-    rand_choice = random.choice(file_images)
-    return rand_choice
+pygame.init()
+pygame.mixer.init()
 
-found_images = image_list_from_folder("common_fish_game")
-print(found_images)
+#Window set up
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 600
 
-
-def folder_search(folder_name, file_name):
-    """Function creeates an absolute path for a folder
-    and searches the folder for a file.
-
-    Args:
-        folder_name (folder file): A folder that holds files for the game
-        file_name (.png or .wav): A file that will be used in the game,
-        either a .png or a .wav file
-
-    Returns:
-        str: The absolute path and file name are returned as strings.
-    """
-    path = Path(folder_name)
-    abs_path = Path(path).resolve()
-    for images in listdir(abs_path):
-        if images == file_name:
-            found_image = images
-    str_abs_path = str(abs_path)
-    file_abs = str_abs_path + "/" + found_image # Concatonates the file to the absolute path
-    return file_abs
+window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+run = True
+pygame.display.set_caption('Fish Game')
+clock = pygame.time.Clock()
 
 
+# Load the background image
+bg_img = folder_search("misc_sprites_and_background", "background.png")
+background_image = pygame.image.load(bg_img)
+# Resize the background image to fit the window
+background_image = pygame.transform.scale(background_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
+
+
+
+catching = False
+fish_caught_points = None
+# Create fish objects
+common_fish = Common(WINDOW_WIDTH // 2 - 100, WINDOW_HEIGHT // 2 - 80)
+uncommon_fish = Uncommon(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 70)
+rare_fish = Rare(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGHT // 2 + 260)
+ultimate_catch = UltimateCatch(WINDOW_WIDTH // 2 +100, WINDOW_HEIGHT // 2 + 150)
+minigame = mini_game(5)
+
+
+
+#Create cat fisherman
+cat = FisherCat(150, 100, WINDOW_WIDTH, WINDOW_HEIGHT)
+
+# Create the scoreboard object
+scoreboard = Scoreboard()
+
+pygame.key.set_repeat(True)
+background_music()
+
+catch_points = 0
+
+while run:
+    pygame.display.update()
+
+    if catching:
+        minigame.draw_minigame_fish(window)
+        if minigame.rectangle.colliderect(minigame.fish_rect):
+            catch_points += 0.5
+
+            print(catch_points)
+        if catch_points >= 100:
+            scoreboard.increase_score(fish_caught_points)
+            fish_caught_sound()
+            catch_points = 0
+            catching = False
+
+        minigame.move_minigame_fish()
+
+    for event in pygame.event.get():
+        if catching and event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                minigame.move_up(minigame.rectangle)
+            if event.key == pygame.K_s:
+                minigame.move_down(minigame.rectangle)
+
+        if event.type == pygame.QUIT:
+            run = False
+        if not catching and event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_d:
+                cat.move_right()
+            elif event.key == pygame.K_a:
+                cat.move_left()
+            elif event.key == pygame.K_e:
+                cat.ready_cast()
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_e:
+                cat.cast()
+    # Check for collision between the fishing bob and the fish
+    if cat.bob_rect.colliderect(common_fish.rect):
+        catching = True
+        fish_caught_sound()
+        minigame.speed = 5
+        fish_caught_points = common_fish.points
+        cat.reset_bob()
+
+    if cat.bob_rect.colliderect(uncommon_fish.rect):
+        catching = True
+        fish_caught_sound()
+        minigame.speed = 7
+        fish_caught_points = uncommon_fish.points
+        cat.reset_bob()
+
+    if cat.bob_rect.colliderect(rare_fish.rect):
+        catching = True
+        fish_caught_sound()
+        minigame.speed = 10
+        fish_caught_points = rare_fish.points
+        cat.reset_bob()
+
+    if cat.bob_rect.colliderect(ultimate_catch.rect):
+        catching = True
+        fish_caught_sound()
+        minigame.speed = 15
+        fish_caught_points = ultimate_catch.points
+        cat.reset_bob()
+    # Update fish positions
+    common_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
+    uncommon_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
+    rare_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
+    ultimate_catch.update(WINDOW_WIDTH,WINDOW_HEIGHT)
+
+    # Draw the background image
+    window.blit(background_image, (0, 0))
+
+    # Draw the fish
+    # -----------------------------------------------------------
+    # Uncomment ultimate_catch to see how it looks on screen!
+    # -----------------------------------------------------------
+    common_fish.draw(window)
+    uncommon_fish.draw(window)
+    rare_fish.draw(window)
+    #ultimate_catch.draw(window)
+    cat.draw(window)
+    
+    minigame.draw(window)
+    if catching:
+        minigame.fill(window)
+    # Draw the scoreboard
+    scoreboard.draw(window)
+    # Update the display
+    pygame.display.flip()
+
+    # Control the frame rate
+    clock.tick(60)
+pygame.quit()
