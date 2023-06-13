@@ -64,7 +64,7 @@ while run:
             elif event.key == pygame.K_a:
                 cat.move_left()
             elif event.key == pygame.K_e:
-                castbar.move_up()
+                castbar.fill_up()
                 cat.ready_cast()
 
         if event.type == pygame.KEYUP:
