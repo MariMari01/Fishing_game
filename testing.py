@@ -5,7 +5,7 @@ This file contains the main build for the fishing game.
 '''
 import time
 import pygame
-from functions import folder_search, background_music, fish_caught_sound, music_end, GameOver, final_music
+from functions import folder_search, background_music, fish_caught_sound, music_end, GameOver, game_won
 from fish_classes import Common, Uncommon, Rare
 from ultimate_catch import UltimateCatch
 from fisher_cat_class import FisherCat
@@ -17,7 +17,7 @@ pygame.init()
 
 #Clock variables
 clock = pygame.time.Clock()
-counter = 113
+counter = 20
 font = pygame.font.SysFont(None, 36)
 text_color = (255, 255, 255)
 position = (640, 11)
@@ -91,7 +91,6 @@ while run:
                 minigame.move_up(minigame.rectangle)
             if event.key == pygame.K_s:
                 minigame.move_down(minigame.rectangle)
-
         if event.type == pygame.QUIT:
             run = False
         elif event.type == timer_event:
@@ -99,8 +98,13 @@ while run:
             text = font.render("Time: " + str(counter), True, text_color)
             if counter == 0 and scoreboard.score < 1000:
                 pygame.time.set_timer(timer_event, 0)
+                # ----------------------------------
+                # This is what I need help with
                 game_over.draw(window)
-
+            if counter == 0 and scoreboard.score >= 100:
+                # ----------------------------------
+                # This is what I need help with
+                game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
         if not catching and counter > 0 and event.type  == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 cat.move_right()
@@ -139,7 +143,6 @@ while run:
         minigame.speed = 15
         fish_caught_points = ultimate_catch.points
         cat.reset_bob()
-        ultimate_catch.game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
     # Update fish positions
     common_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     uncommon_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
