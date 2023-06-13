@@ -5,12 +5,13 @@ This file contains the main build for the fishing game.
 '''
 
 import pygame
-
+from model import folder_search
+from functions import background_music, fish_caught_sound, cat_animation
 from fish_classes import Common, Uncommon, Rare
 from ultimate_catch import UltimateCatch
 from fisher_cat_class import FisherCat
 from score import Scoreboard
-from model import folder_search
+from mini_game import mini_game
 
 pygame.init()
 pygame.mixer.init()
@@ -25,58 +26,24 @@ pygame.display.set_caption('Fish Game')
 clock = pygame.time.Clock()
 
 
-def cat_animation(x,y):
-    """Animates the cat while it casts the fishing line
-
-    Args:
-        x (object.rect.left): The x coordinate of the cat.
-        y (object.rect.top): The y coordinate of the cat.
-    """
-    ship_cat1 = folder_search("misc_sprites_and_background", "ship_cat_1.png")
-    ship_cat2 = folder_search("misc_sprites_and_background", "ship_cat_2.png")
-    ship_cat3 = folder_search("misc_sprites_and_background", "ship_cat_3.png")
-
-    cat_ship_sprite = [pygame.image.load(ship_cat2),
-                        pygame.image.load(ship_cat3),
-                        pygame.image.load(ship_cat2),
-                        pygame.image.load(ship_cat1)]
-    clock = pygame.time.Clock()
-    value = 0
-    run = True
-    while run:
-        if value >= len(cat_ship_sprite):
-            value = 0
-            run = False
-        clock.tick(len(cat_ship_sprite))
-        image = cat_ship_sprite[value]
-        window.blit(image, (x,y))
-        pygame.display.update()
-        value += 1
-
 # Load the background image
 bg_img = folder_search("misc_sprites_and_background", "background.png")
 background_image = pygame.image.load(bg_img)
 # Resize the background image to fit the window
 background_image = pygame.transform.scale(background_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
-def background_music():
-    """Allows the background music to play throughout the gameplay.
-    """
-    bg_music_file = folder_search("sound_files", "background_music.wav")
-    pygame.mixer.music.load(bg_music_file)
-    pygame.mixer.music.play(-1)
 
-def fish_caught_sound():
-    """Allows a splash sound to play when the function is called.
-    """
-    sound_effect = folder_search("sound_files", "splash_sound.wav")
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound(sound_effect))
 
+catching = False
+fish_caught_points = None
 # Create fish objects
 common_fish = Common(WINDOW_WIDTH // 2 - 100, WINDOW_HEIGHT // 2 - 80)
 uncommon_fish = Uncommon(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 70)
 rare_fish = Rare(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGHT // 2 + 260)
 ultimate_catch = UltimateCatch(WINDOW_WIDTH // 2 +100, WINDOW_HEIGHT // 2 + 150)
+minigame = mini_game(5)
+
+
 
 #Create cat fisherman
 cat = FisherCat(150, 100, WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -87,12 +54,35 @@ scoreboard = Scoreboard()
 pygame.key.set_repeat(True)
 background_music()
 
+catch_points = 0
+
 while run:
     pygame.display.update()
+
+    if catching:
+        minigame.draw_minigame_fish(window)
+        if minigame.rectangle.colliderect(minigame.fish_rect):
+            catch_points += 0.5
+
+            print(catch_points)
+        if catch_points >= 100:
+            scoreboard.increase_score(fish_caught_points)
+            fish_caught_sound()
+            catch_points = 0
+            catching = False
+
+        minigame.move_minigame_fish()
+
     for event in pygame.event.get():
+        if catching and event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                minigame.move_up(minigame.rectangle)
+            if event.key == pygame.K_s:
+                minigame.move_down(minigame.rectangle)
+
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.KEYDOWN:
+        if not catching and event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 cat.move_right()
             elif event.key == pygame.K_a:
@@ -101,27 +91,36 @@ while run:
                 cat.ready_cast()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_e:
-                cat_animation(cat.rect.left, cat.rect.top)
+                cat_animation(window, cat.rect.left, cat.rect.top)
                 cat.cast()
-
     # Check for collision between the fishing bob and the fish
     if cat.bob_rect.colliderect(common_fish.rect):
+        catching = True
         fish_caught_sound()
-        scoreboard.increase_score(common_fish.points)
-        cat.reset_bob()
-    if cat.bob_rect.colliderect(uncommon_fish.rect):
-        fish_caught_sound()
-        scoreboard.increase_score(uncommon_fish.points)
-        cat.reset_bob()
-    if cat.bob_rect.colliderect(rare_fish.rect):
-        fish_caught_sound()
-        scoreboard.increase_score(rare_fish.points)
-        cat.reset_bob()
-    if cat.bob_rect.colliderect(ultimate_catch.rect):
-        fish_caught_sound()
-        scoreboard.increase_score(ultimate_catch.points)
+        minigame.speed = 5
+        fish_caught_points = common_fish.points
         cat.reset_bob()
 
+    if cat.bob_rect.colliderect(uncommon_fish.rect):
+        catching = True
+        fish_caught_sound()
+        minigame.speed = 7
+        fish_caught_points = uncommon_fish.points
+        cat.reset_bob()
+
+    if cat.bob_rect.colliderect(rare_fish.rect):
+        catching = True
+        fish_caught_sound()
+        minigame.speed = 10
+        fish_caught_points = rare_fish.points
+        cat.reset_bob()
+
+    if cat.bob_rect.colliderect(ultimate_catch.rect):
+        catching = True
+        fish_caught_sound()
+        minigame.speed = 15
+        fish_caught_points = ultimate_catch.points
+        cat.reset_bob()
     # Update fish positions
     common_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
     uncommon_fish.update(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -138,16 +137,17 @@ while run:
     common_fish.draw(window)
     uncommon_fish.draw(window)
     rare_fish.draw(window)
-    # ultimate_catch.draw(window)
+    #ultimate_catch.draw(window)
     cat.draw(window)
-
+    
+    minigame.draw(window)
+    if catching:
+        minigame.fill(window)
     # Draw the scoreboard
     scoreboard.draw(window)
-
     # Update the display
     pygame.display.flip()
 
     # Control the frame rate
     clock.tick(60)
 pygame.quit()
-
