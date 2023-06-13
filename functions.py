@@ -76,6 +76,13 @@ def cat_animation(window, x,y):
         pygame.display.update()
         value += 1
 
+def game_won(screen, window_width, window_height):
+    font = pygame.font.SysFont(None, 36)
+    text_color = (255, 255, 255)
+    position = (window_width//2, window_height//2)
+    score_text = font.render("YOU WON", True, text_color)
+    screen.blit(score_text, position)
+
 class GameOver:
     def __init__(self, window_width, window_height) -> None:
         self.font =pygame.font.SysFont(None, 36)
@@ -83,6 +90,6 @@ class GameOver:
         self.position = (window_width//2, window_height//2)
 
     def draw(self,screen):
+        music_end()
         self.score_text = self.font.render("GAME OVER", True, self.text_color)
         screen.blit(self.score_text, self.position)
-
