@@ -32,6 +32,15 @@ def background_music():
     pygame.mixer.music.load(bg_music_file)
     pygame.mixer.music.play()
 
+def music_end():
+    pygame.mixer.music.stop()
+    pygame.mixer.music.unload()
+
+def final_music():
+    final_music_file = folder_search("sound_files", "ultimate_catch.wav")
+    pygame.mixer.music.load(final_music_file)
+    pygame.mixer.music.play()
+
 def fish_caught_sound():
     """Allows a splash sound to play when the function is called.
     """
@@ -66,10 +75,6 @@ def cat_animation(window, x,y):
         window.blit(image, (x,y))
         pygame.display.update()
         value += 1
-
-def music_end():
-    pygame.mixer.music.stop()
-    pygame.mixer.music.unload()
 
 class GameOver:
     def __init__(self, window_width, window_height) -> None:
