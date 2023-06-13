@@ -3,27 +3,38 @@ File: Final_main.py
 Authors: Sarena, Aspen, and Sam
 This file contains the main build for the fishing game. 
 '''
-
+import time
 import pygame
-
-from functions import folder_search, background_music, fish_caught_sound
+from functions import folder_search, background_music, fish_caught_sound, music_end, GameOver
 from fish_classes import Common, Uncommon, Rare
 from ultimate_catch import UltimateCatch
 from fisher_cat_class import FisherCat
 from score import Scoreboard
 from mini_game import mini_game
 
+
 pygame.init()
+
+#Clock variables
+clock = pygame.time.Clock()
+counter = 10
+font = pygame.font.SysFont(None, 36)
+text_color = (255, 255, 255)
+position = (640, 11)
+text = font.render("Time: " + str(counter), True, text_color)
+timer_event = pygame.USEREVENT+1
+pygame.time.set_timer(timer_event, 1000)
+
 pygame.mixer.init()
 
 #Window set up
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
+
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 run = True
 pygame.display.set_caption('Fish Game')
-clock = pygame.time.Clock()
 
 
 # Load the background image
@@ -42,6 +53,7 @@ uncommon_fish = Uncommon(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 70)
 rare_fish = Rare(WINDOW_WIDTH // 2 + 100, WINDOW_HEIGHT // 2 + 260)
 ultimate_catch = UltimateCatch(WINDOW_WIDTH // 2 +100, WINDOW_HEIGHT // 2 + 150)
 minigame = mini_game(5)
+game_over = GameOver(WINDOW_WIDTH, WINDOW_HEIGHT)
 
 
 
@@ -80,8 +92,17 @@ while run:
             if event.key == pygame.K_s:
                 minigame.move_down(minigame.rectangle)
 
+
         if event.type == pygame.QUIT:
             run = False
+        elif event.type == timer_event:
+            counter -= 1
+            text = font.render("Time: " + str(counter), True, text_color)
+            if counter == 0:
+                pygame.time.set_timer(timer_event, 0)
+                music_end()
+                game_over.draw(window)
+            # if counter == 0 and scoreboard.score >= 1000:
         if not catching and event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 cat.move_right()
@@ -138,15 +159,17 @@ while run:
     rare_fish.draw(window)
     #ultimate_catch.draw(window)
     cat.draw(window)
-    
+
     minigame.draw(window)
     if catching:
         minigame.fill(window)
     # Draw the scoreboard
     scoreboard.draw(window)
+    window.blit(text, position)
     # Update the display
     pygame.display.flip()
 
     # Control the frame rate
     clock.tick(60)
 pygame.quit()
+
