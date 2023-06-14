@@ -1,9 +1,17 @@
+"""Fishing Game by Sam, Sarena, and Aspen
+Start Screen Backstory.
+"""
+
+
 import pygame
 import functions as f
 from classes import Button
 
+
 def show_story(func):
-    # Code to display the background story goes here
+    """ Code to display the background story goes here
+    """
+
     pygame.init()
     pygame.mixer.init()
 
@@ -29,7 +37,9 @@ def show_story(func):
     button_margin = 20
     button_color = (0, 0, 50) # Dark Blue
 
-    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin, button_width, button_height, button_color)
+    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2,
+                    WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin,
+                    button_width, button_height, button_color)
 
     while True:
         for event in pygame.event.get():
