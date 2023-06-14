@@ -25,6 +25,7 @@ class GameOver:
         Args:
             screen (pygame.display): Gives the function a screen to draw on.
         """
+        game_over_sound()
         self.score_text = self.font.render("GAME OVER", True, self.text_color)
         screen.blit(self.score_text, self.position)
 
