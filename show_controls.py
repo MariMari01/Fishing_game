@@ -1,3 +1,6 @@
+"""Fishing Game by Sam, Sarena, and Aspen
+Start Screen Controls Example
+"""
 import pygame
 import functions as f
 from classes import Button
@@ -16,7 +19,6 @@ def show_controls(func):
     pygame.display.set_caption('Fish Game')
     clock = pygame.time.Clock()
 
-
     # Load the background image
     bg_img = f.folder_search("misc_sprites_and_background", "controls_background.png")
     background_image = pygame.image.load(bg_img)
@@ -29,7 +31,9 @@ def show_controls(func):
     button_margin = 20
     button_color = (0, 0, 50) # Dark Blue
 
-    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin, button_width, button_height, button_color)
+    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2,
+                    WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin,
+                    button_width, button_height, button_color)
 
     while True:
         for event in pygame.event.get():
@@ -51,3 +55,4 @@ def show_controls(func):
 
         pygame.display.flip()
         clock.tick(60)
+
