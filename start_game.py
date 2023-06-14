@@ -3,6 +3,7 @@ import functions as f
 from fish_classes import Common, Uncommon, Rare, UltimateCatch
 from fisher_cat_class import FisherCat
 from classes import Scoreboard, GameOver, CastBar
+import endcredits as cred
 
 def start_game():
     # Game code goes here
@@ -19,7 +20,7 @@ def start_game():
     clock = pygame.time.Clock()
 
     # Change counter for testing
-    counter = 113
+    counter = 10
     font = pygame.font.SysFont(None, 36)
     text_color = (255, 255, 255)
     position = (640, 11)
@@ -72,11 +73,18 @@ def start_game():
             if counter <= 0 and scoreboard.score < 2000:
                 pygame.time.set_timer(timer_event, 0)
                 game_is_over = True
-                game_over.draw(window)
+
+                bg_img = f.folder_search("misc_sprites_and_background", "background.png")
+                credits_screen = cred.CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), bg_img, "credits.txt")
+                credits_screen.run()            
             if counter <= 0 and scoreboard.score >= 2000:
                 pygame.time.set_timer(timer_event, 0)
                 game_is_over = True
-                f.game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
+
+                bg_img = f.folder_search("misc_sprites_and_background", "background.png")
+                credits_screen = cred.CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), bg_img, "credits.txt")
+                credits_screen.run()            
+                f.Game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
 
             if counter > 0 and event.type  == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
