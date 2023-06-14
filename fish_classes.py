@@ -91,3 +91,28 @@ class Rare(Fish):
             rand_int = random.randint(-180, 170)
             self.y = 383 + rand_int
         self.rect.center = (self.x, self.y)
+
+
+class UltimateCatch(Fish):
+    def __init__(self, x, y):
+        super().__init__(x, y, speed=20, points=500)
+        self.found_fish = self.image_list_from_folder("ultimate_fish_game")
+        self.image = pygame.image.load(self.found_fish)
+    
+    def update(self, screen_width, screen_height):
+        self.x += self.speed
+        if self.x >= screen_width:
+            self.found_fish = self.image_list_from_folder("ultimate_fish_game")
+            self.image = pygame.image.load(self.found_fish)
+            self.x = 0
+            rand_int = random.randint(-180, 170)
+            self.y = 383 + rand_int
+
+        self.rect.center = (self.x, self.y)
+
+    def game_won(self, screen, window_width, window_height):
+        self.font = pygame.font.SysFont(None, 36)
+        self.text_color = (255, 255, 255)
+        self.position = (window_width//2, window_height//2)
+        score_text = self.font.render("YOU WON", True, self.text_color)
+        screen.blit(score_text, self.position)
