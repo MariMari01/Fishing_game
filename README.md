@@ -24,7 +24,3 @@ Each fish ground has its own score value.
 
 If the player scores the goal points in the alloted time, the game is won!
 However, if the player fails to do so, the game is lost. With some practice, the game is beatable!
-
-# Module descriptions
-
-
