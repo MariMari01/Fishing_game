@@ -28,4 +28,4 @@ If the player scores the goal points in the alloted time, the game is won!
 However, if the player fails to do so, the game is lost. With some practice, the game is beatable!
 
 # Link to video presentation
-https://docs.google.com/presentation/d/1QxvvH2WCbirokwVIkoLoE5fFGcycGN4e-M2fZAu0Pkk/edit?usp=sharing
+[https://docs.google.com/presentation/d/1QxvvH2WCbirokwVIkoLoE5fFGcycGN4e-M2fZAu0Pkk/edit?usp=sharing](https://drive.google.com/file/d/1IK_IGKNN7rLPl1PWEPiHiI91WMFhOAqU/view?usp=sharing)
