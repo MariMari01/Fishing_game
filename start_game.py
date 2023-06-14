@@ -1,3 +1,7 @@
+"""Fishing Game by Sam, Sarena, and Aspen
+Module for the Start Screen Start Game button.
+"""
+
 import pygame
 import functions as f
 from fish_classes import Common, Uncommon, Rare, UltimateCatch
@@ -5,13 +9,14 @@ from fisher_cat_class import FisherCat
 from classes import Scoreboard, GameOver, CastBar
 import endcredits as cred
 
+
 def start_game():
     '''
     Begins the game for catching fish, the player
     controls a cat on a boat and moves in the left and right directions. 
     to catch fish, the player casts a fishing rod using 'e'
     '''
-    # Game code goes here
+
     pygame.init()
     pygame.mixer.init()
 
@@ -33,13 +38,11 @@ def start_game():
     timer_event = pygame.USEREVENT+1
     pygame.time.set_timer(timer_event, 1000)
 
-
     # Load the background image
     bg_img = f.folder_search("misc_sprites_and_background", "background.png")
     background_image = pygame.image.load(bg_img)
     # Resize the background image to fit the window
     background_image = pygame.transform.scale(background_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
-
 
     castbar = CastBar()
     # Create fish objects
@@ -49,8 +52,6 @@ def start_game():
     ultimate_catch = UltimateCatch(WINDOW_WIDTH // 2 +100, WINDOW_HEIGHT // 2 + 150)
 
     game_over = GameOver(WINDOW_WIDTH, WINDOW_HEIGHT)
-
-
 
     #Create cat fisherman
     cat = FisherCat(150, 100, WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -62,7 +63,6 @@ def start_game():
     f.background_music()
 
     game_is_over = False
-
 
     while run:
         pygame.display.update()
@@ -84,10 +84,11 @@ def start_game():
                 pygame.time.set_timer(timer_event, 0)
                 game_is_over = True
                 bg_img = f.folder_search("misc_sprites_and_background", "background.png")
-                credits_screen = cred.CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), bg_img, "credits.txt")
-                credits_screen.run()            
+                credits_screen = cred.CreditsScreen(800, 600, "End credits",
+                                                    40, (255, 255, 255), bg_img, "credits.txt")
+                credits_screen.run()
 
-                f.Game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
+                f.game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
 
             if counter > 0 and event.type  == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
@@ -138,9 +139,6 @@ def start_game():
             window.blit(background_image, (0, 0))
 
         # Draw the fish
-        # -----------------------------------------------------------
-        # Uncomment ultimate_catch to see how it looks on screen!
-        # -----------------------------------------------------------
             common_fish.draw(window)
             uncommon_fish.draw(window)
             rare_fish.draw(window)
