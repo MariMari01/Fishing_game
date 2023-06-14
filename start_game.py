@@ -20,7 +20,7 @@ def start_game():
     clock = pygame.time.Clock()
 
     # Change counter for testing
-    counter = 10
+    counter = 113
     font = pygame.font.SysFont(None, 36)
     text_color = (255, 255, 255)
     position = (640, 11)
