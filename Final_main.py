@@ -3,14 +3,13 @@ File: Final_main.py
 Authors: Sarena, Aspen, and Sam
 This file contains the main build for the fishing game. 
 '''
-import time
+
+
 import pygame
-from functions import folder_search, background_music, fish_caught_sound, music_end, GameOver, game_won, cat_animation
-from fish_classes import Common, Uncommon, Rare
-from ultimate_catch import UltimateCatch
+from functions import folder_search, background_music, fish_caught_sound, music_end, GameOver, game_won, cat_animation, Scoreboard, CastBar
+from fish_classes import Common, Uncommon, Rare, UltimateCatch
 from fisher_cat_class import FisherCat
-from score import Scoreboard
-from cast_bar import CastBar
+
 
 pygame.init()
 pygame.mixer.init()
@@ -71,13 +70,14 @@ while run:
             text = font.render("Time: " + str(counter), True, text_color)
             if counter <= 0 and scoreboard.score < 100:
                 pygame.time.set_timer(timer_event, 0)
+                music_end()
                 game_is_over = True
                 game_over.draw(window)
             if counter <= 0 and scoreboard.score >= 100:
                 game_is_over = True
                 game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
-        
-        if not catching and counter > 0 and event.type  == pygame.KEYDOWN:
+
+        if counter > 0 and event.type  == pygame.KEYDOWN:
             if event.key == pygame.K_d:
                 cat.move_right()
             elif event.key == pygame.K_a:
