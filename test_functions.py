@@ -5,6 +5,7 @@ Tests all functions in functions.py, fisher_cat_class.py and fish_classes.py
 For each passing test, there is a failing test.
 """
 import functions as f
+import classes as c
 from fisher_cat_class import FisherCat
 from fish_classes import Fish
 import pygame
@@ -117,62 +118,62 @@ def test_game_over_draw():
     screen = pygame.display.set_mode()
     window_width = 0
     window_height = 0
-    test_game_over = f.GameOver(window_width, window_height)
+    test_game_over = c.GameOver(window_width, window_height)
     test_game_over.draw(screen)
 
 def test_game_over_draw_fail():
     """A failing test for draw() from the GameOver class in functions.py
     Forgoes neccessary parameters for game_won() and GameOver().
     """
-    test_game_over = f.GameOver()
+    test_game_over = c.GameOver()
     test_game_over.draw()
 
 def test_scoreboard_increase_score():
     """This function tests increase_score() from the Scoreboard class in functions.py
     """
     points = 0
-    test_increase_score = f.Scoreboard()
+    test_increase_score = c.Scoreboard()
     test_increase_score.increase_score(points)
 
 def test_scoreboard_increase_score_fail():
     """A failing test for increase_score() from the Scoreboard class in functions.py
     Forgoes neccessary parameters for increase_score() and Scoreboard().
     """
-    test_increase_score = f.Scoreboard()
+    test_increase_score = c.Scoreboard()
     test_increase_score.increase_score()
 
 def test_scoreboard_draw():
     """This function tests draw() from the Scoreboard class in functions.py
     """
     screen = pygame.display.set_mode()
-    scoreboard_draw = f.Scoreboard()
+    scoreboard_draw = c.Scoreboard()
     scoreboard_draw.draw(screen)
 
 def test_scoreboard_draw_fail():
     """A failing test for idraw() from the Scoreboard class in functions.py
     Forgoes neccessary parameters for draw() and Scoreboard().
     """
-    scoreboard_draw = f.Scoreboard()
+    scoreboard_draw = c.Scoreboard()
     scoreboard_draw.draw()
 
 def test_castbar_draw():
     """This function tests draw() from the CastBar class in functions.py
     """
     screen = pygame.display.set_mode()
-    castbar_draw = f.CastBar()
+    castbar_draw = c.CastBar()
     castbar_draw.draw(screen)
 
 def test_castbar_draw_fail():
     """A failing test for draw() from the CastBar class in functions.py
     Forgoes neccessary parameters for draw().
     """
-    castbar_draw = f.CastBar()
+    castbar_draw = c.CastBar()
     castbar_draw.draw()
 
 def test_castbar_fill_up():
     """This function tests fill_up() from the CastBar class in functions.py
     """
-    castbar_draw = f.CastBar()
+    castbar_draw = c.CastBar()
     castbar_draw.fill_up()
 
 def test_castbar_fill_up_fail():
@@ -180,21 +181,21 @@ def test_castbar_fill_up_fail():
     Adds neccessary parameters for draw().
     """
     screen = pygame.display.set_mode()
-    castbar_draw = f.CastBar()
+    castbar_draw = c.CastBar()
     castbar_draw.fill_up(screen)
 
 def test_castbar_fill():
     """This function tests fill() from the CastBar class in functions.py
     """
     screen = pygame.display.set_mode()
-    castbar_draw = f.CastBar()
+    castbar_draw = c.CastBar()
     castbar_draw.fill(screen)
 
 def test_castbar_fill_fail():
     """A failing test for fill() from the CastBar class in functions.py
     Forgoes neccessary parameters for fill().
     """
-    castbar_draw = f.CastBar()
+    castbar_draw = c.CastBar()
     castbar_draw.fill()
 
 # Testing for fish_classes.py
