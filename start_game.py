@@ -76,7 +76,7 @@ def start_game():
             if counter <= 0 and scoreboard.score >= 2000:
                 pygame.time.set_timer(timer_event, 0)
                 game_is_over = True
-                Game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
+                f.game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
 
             if counter > 0 and event.type  == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
