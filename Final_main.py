@@ -1,3 +1,10 @@
+'''
+File: File_main.py
+Authors: Aspen, Sarena, and Sam
+This is tha main file for our project, it is a fishing game where you
+must collect fish 
+'''
+
 import pygame
 import functions as f
 from classes import Button
