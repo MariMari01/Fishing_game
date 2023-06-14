@@ -10,10 +10,14 @@ class Button:
         self.font = pygame.font.Font(None, 36)
 
     def draw(self, window):
-        pygame.draw.rect(window, self.color, self.rect)
+        if self.is_mouse_over():
+            pygame.draw.rect(window, self.hover_color, self.rect)
+        else:
+            pygame.draw.rect(window, self.color, self.rect)
         text_surface = self.font.render(self.text, True, (255, 255, 255))
-        text_rect = text_surface.get_rect(center=(self.rect.centerx, self.rect.centery)) # Center text
+        text_rect = text_surface.get_rect(center=(self.rect.centerx, self.rect.centery))
         window.blit(text_surface, text_rect)
+
 
     def is_mouse_over(self):
         mouse_pos = pygame.mouse.get_pos()
