@@ -1,6 +1,8 @@
 # Fishing Game by Sam, Serena, and Aspen
 Follow Whiskers the cat as he learns the ways of the seas from the mysterious Captain Whiskerbeard!
 
+To play the game, run the File_main.py module
+
 In this game, you can:
 - Read the backstory of Whiskers and Captain Whiskerbeard.
 - Explore the sprites of the fish used in the game.
