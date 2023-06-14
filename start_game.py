@@ -78,14 +78,15 @@ def start_game():
             if counter <= 0 and scoreboard.score < 2000:
                 pygame.time.set_timer(timer_event, 0)
                 game_is_over = True
-                credits_screen = cred.CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), "background.png", "credits.txt")
-                credits_screen.run()
+
                 game_over.draw(window)
             if counter <= 0 and scoreboard.score >= 2000:
                 pygame.time.set_timer(timer_event, 0)
                 game_is_over = True
+                bg_img = f.folder_search("misc_sprites_and_background", "background.png")
+                credits_screen = cred.CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), bg_img, "credits.txt")
+                credits_screen.run()            
                 credits_screen = cred.CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), "background.png", "credits.txt")
-                credits_screen.run()
                 f.Game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
 
             if counter > 0 and event.type  == pygame.KEYDOWN:
