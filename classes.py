@@ -59,8 +59,11 @@ class Scoreboard:
         screen.blit(score_text, self.position)
 
 class CastBar:
-    """Cast bar determine the strength of the players cast.
-    """
+    '''
+    The cast bar displays as the player is readying their cast
+    this shows visually roughly how far the hook will end up after
+    the player finishes their cast.
+    '''
 
     def __init__(self) -> None:
         """A class for the cast bar, an on screen
