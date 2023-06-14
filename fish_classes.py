@@ -1,10 +1,20 @@
+"""Fishing Game by Sam, Sarena, and Aspen
+Fish parent class and Common, Uncommon, Rare, and Ultimate child classes.
+"""
+
 from pathlib import Path
 from os import listdir
-import pygame
 import random
+import pygame
+
 
 class Fish:
+    """Fish parent class for common, uncommon, rare, and ultimate fish.
+    """
+
     def __init__(self, x, y, speed, points):
+        """Speed, location, and points for fish subclasses.
+        """
         self.x = x
         self.y = y
         self.folder_name = "common_fish_game"
@@ -15,7 +25,6 @@ class Fish:
         self.rect.center = (self.x, self.y)
         self.speed = speed
         self.points = points
-
 
     def image_list_from_folder(self,folder_name):
         """Function creeates an absolute path for a folder
@@ -39,17 +48,24 @@ class Fish:
         image_choice = str_abs_path + "/" + rand_choice
         return image_choice
 
-
     def draw(self, screen):
+        """Draws the fish onto the screen
+        """
         screen.blit(self.image, self.rect)
 
 class Common(Fish):
+    """Common Fish
+    """
     def __init__(self, x, y):
+        """Speed and points for common fish.
+        """
         super().__init__(x, y, speed=2, points=5)
         self.found_fish = self.image_list_from_folder("common_fish_game")
-        pygame.image.load(self.found_fish)  # Replace 'red_snapper.png' with the actual image file name
+        pygame.image.load(self.found_fish)
 
     def update(self, screen_width, screen_height):
+        """Updates the screen.
+        """
         self.x += self.speed
         if self.x >= screen_width:
             self.found_fish = self.image_list_from_folder("common_fish_game")
@@ -59,14 +75,19 @@ class Common(Fish):
             self.y = 383 + rand_int
         self.rect.center = (self.x, self.y)
 
-
 class Uncommon(Fish):
+    """Uncommon Fish
+    """
     def __init__(self, x, y):
+        """Speed and points for uncommon fish.
+        """
         super().__init__(x, y, speed=6, points=10)
         self.found_fish = self.image_list_from_folder("uncommon_fish_game")
-        self.image = pygame.image.load(self.found_fish)  # Replace 'cod.png' with the actual image file name
-    
+        self.image = pygame.image.load(self.found_fish)
+
     def update(self, screen_width, screen_height):
+        """Updates the location of uncommon fish.
+        """
         self.x += self.speed
         if self.x >= screen_width:
             self.found_fish = self.image_list_from_folder("uncommon_fish_game")
@@ -77,12 +98,18 @@ class Uncommon(Fish):
         self.rect.center = (self.x, self.y)
 
 class Rare(Fish):
+    """Rare fish
+    """
     def __init__(self, x, y):
+        """Speed and Points of the rare fish.
+        """
         super().__init__(x, y, speed=8, points=15)
         self.found_fish = self.image_list_from_folder("rare_fish_game")
-        self.image = pygame.image.load(self.found_fish)  # Replace 'moonfish.png' with the actual image file name
-    
+        self.image = pygame.image.load(self.found_fish)
+
     def update(self, screen_width, screen_height):
+        """Updates the screen for rare fish.
+        """
         self.x += self.speed
         if self.x >= screen_width:
             self.found_fish = self.image_list_from_folder("rare_fish_game")
@@ -92,14 +119,21 @@ class Rare(Fish):
             self.y = 383 + rand_int
         self.rect.center = (self.x, self.y)
 
-
 class UltimateCatch(Fish):
+    """Fish worth the most points
+
+    """
     def __init__(self, x, y):
+        """Points speed for ultimate catch
+
+        """
         super().__init__(x, y, speed=15, points=100)
         self.found_fish = self.image_list_from_folder("ultimate_fish_game")
         self.image = pygame.image.load(self.found_fish)
-    
+
     def update(self, screen_width, screen_height):
+        """Updates ultimate catch as it is on screen.
+        """
         self.x += self.speed
         if self.x >= screen_width:
             self.found_fish = self.image_list_from_folder("ultimate_fish_game")
@@ -109,11 +143,4 @@ class UltimateCatch(Fish):
             self.y = 383 + rand_int
 
         self.rect.center = (self.x, self.y)
-
-    def game_won(self, screen, window_width, window_height):
-        self.font = pygame.font.SysFont(None, 36)
-        self.text_color = (255, 255, 255)
-        self.position = (window_width//2, window_height//2)
-        score_text = self.font.render("YOU WON", True, self.text_color)
-        screen.blit(score_text, self.position)
 
