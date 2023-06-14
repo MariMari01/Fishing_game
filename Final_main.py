@@ -217,9 +217,6 @@ def start_game():
         clock.tick(60)
     pygame.quit()
 
-
-def show_story():
-    # Code to display the background story goes here
 def show_story():
     # Code to display the background story goes here
     pygame.init()
@@ -257,7 +254,7 @@ def show_story():
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if button.is_mouse_over():
                     if button.text == "Back":
-                        show_encyclopedia()
+                        main_menu()
                         return
 
         window.blit(background_image, (0, 0))
