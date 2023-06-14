@@ -25,8 +25,6 @@ class GameOver:
         Args:
             screen (pygame.display): Gives the function a screen to draw on.
         """
-        music_end()
-        game_over_sound()
         self.score_text = self.font.render("GAME OVER", True, self.text_color)
         screen.blit(self.score_text, self.position)
 
@@ -59,11 +57,8 @@ class Scoreboard:
         screen.blit(score_text, self.position)
 
 class CastBar:
-    '''
-    The cast bar displays as the player is readying their cast
-    this shows visually roughly how far the hook will end up after
-    the player finishes their cast.
-    '''
+    """Cast bar determine the strength of the players cast.
+    """
 
     def __init__(self) -> None:
         """A class for the cast bar, an on screen
@@ -145,4 +140,3 @@ class Button:
         mouse_pos = pygame.mouse.get_pos()
         return self.rect.collidepoint(mouse_pos)
 
-    
