@@ -103,3 +103,8 @@ class CreditsScreen:
 
             pygame.display.flip()
             self.clock.tick(60)
+            
+if __name__ == '__main__':
+    bg_img = f.folder_search("misc_sprites_and_background", "background.png")
+    credits_screen = CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), bg_img, "credits.txt")
+    credits_screen.run()            
