@@ -1,22 +1,19 @@
-'''
-File: File_main.py
-Authors: Aspen, Sarena, and Sam
-This is tha main file for our project, it is a fishing game where you
-must collect fish 
-'''
+"""Fishing Game by Sam, Sarena, and Aspen
+Main Module for the Fishing Game
+"""
 
 import pygame
 import functions as f
 from classes import Button
-from show_controls import show_controls 
+from show_controls import show_controls
 from show_encyclopedia import show_encyclopedia
 from show_story import show_story
 from start_game import start_game
 
 
-
-
 def main():
+    """Game Function
+    """
     pygame.init()
     pygame.mixer.init()
 
@@ -41,11 +38,20 @@ def main():
     button_color = (0, 0, 50) # Dark Blue
 
     buttons = [
-        Button("Start Game", WINDOW_WIDTH // 2 + 250 - button_width // 2, WINDOW_HEIGHT // 2 - 2.5 * button_height - 2 * button_margin, button_width, button_height, button_color),
-        Button("Background Story", WINDOW_WIDTH // 2 + 250 - button_width // 2, WINDOW_HEIGHT // 2 - 1.5 * button_height - button_margin, button_width, button_height, button_color),
-        Button("Fish Encyclopedia", WINDOW_WIDTH // 2 + 250 - button_width // 2, WINDOW_HEIGHT // 2 - 0.5 * button_height, button_width, button_height, button_color),
-        Button("Controls", WINDOW_WIDTH // 2 + 250 - button_width // 2, WINDOW_HEIGHT // 2 + 0.5 * button_height + button_margin, button_width, button_height, button_color),
-        Button("Quit", WINDOW_WIDTH // 2 + 250 - button_width // 2, WINDOW_HEIGHT // 2 + 1.5 * button_height + 2 * button_margin, button_width, button_height, button_color)
+        Button("Start Game", WINDOW_WIDTH // 2 + 250 - button_width // 2,
+               WINDOW_HEIGHT // 2 - 2.5 * button_height - 2 * button_margin,
+               button_width, button_height, button_color),
+        Button("Background Story", WINDOW_WIDTH // 2 + 250 - button_width // 2,
+               WINDOW_HEIGHT // 2 - 1.5 * button_height - button_margin, button_width,
+               button_height, button_color),
+        Button("Fish Encyclopedia", WINDOW_WIDTH // 2 + 250 - button_width // 2,
+               WINDOW_HEIGHT // 2 - 0.5 * button_height, button_width, button_height, button_color),
+        Button("Controls", WINDOW_WIDTH // 2 + 250 - button_width // 2,
+               WINDOW_HEIGHT // 2 + 0.5 * button_height + button_margin,
+               button_width, button_height, button_color),
+        Button("Quit", WINDOW_WIDTH // 2 + 250 - button_width // 2,
+               WINDOW_HEIGHT // 2 + 1.5 * button_height + 2 * button_margin,
+               button_width, button_height, button_color)
     ]
 
     while True:
@@ -83,4 +89,3 @@ def main():
 if __name__ == "__main__":
 
     main()
-
