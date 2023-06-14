@@ -1,4 +1,4 @@
-"""Fishing Game by Same, Sarena, and Aspen
+"""Fishing Game by Sam, Sarena, and Aspen
 Encyclopedia for the start screen.
 """
 import pygame
