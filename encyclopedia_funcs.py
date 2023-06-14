@@ -1,9 +1,14 @@
+"""Fishing Game by Same, Sarena, and Aspen
+Encyclopedia for the start screen.
+"""
 import pygame
 import functions as f
-from button import Button
+from classes import Button
 
 def common_fish(func1, func2):
-    # Code to show the fish encyclopedia goes here
+    """Code to show the fish encyclopedia goes here
+    """
+
     pygame.init()
     pygame.mixer.init()
 
@@ -27,7 +32,9 @@ def common_fish(func1, func2):
     button_margin = 20
     button_color = (0, 0, 50) # Dark Blue
 
-    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin, button_width, button_height, button_color)
+    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2,
+                    WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin,
+                    button_width, button_height, button_color)
 
     while True:
         for event in pygame.event.get():
@@ -50,9 +57,10 @@ def common_fish(func1, func2):
         pygame.display.flip()
         clock.tick(60)
 
-
 def uncommon_fish(func1,func2):
-    # Code to show the fish encyclopedia goes here
+    """Code to show the fish encyclopedia goes here
+    """
+
     pygame.init()
     pygame.mixer.init()
 
@@ -76,7 +84,9 @@ def uncommon_fish(func1,func2):
     button_margin = 20
     button_color = (0, 0, 50) # Dark Blue
 
-    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin, button_width, button_height, button_color)
+    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2,
+                    WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin,
+                    button_width, button_height, button_color)
 
     while True:
         for event in pygame.event.get():
@@ -100,7 +110,9 @@ def uncommon_fish(func1,func2):
         clock.tick(60)
 
 def rare_fish(func1,func2):
-    # Code to show the fish encyclopedia goes here
+    """Code to show the fish encyclopedia goes here
+    """
+
     pygame.init()
     pygame.mixer.init()
 
@@ -124,7 +136,9 @@ def rare_fish(func1,func2):
     button_margin = 20
     button_color = (0, 0, 50) # Dark Blue
 
-    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin, button_width, button_height, button_color)
+    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2,
+                    WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin,
+                    button_width, button_height, button_color)
 
     while True:
         for event in pygame.event.get():
@@ -148,7 +162,9 @@ def rare_fish(func1,func2):
         clock.tick(60)
 
 def ultimate_fish(func1,func2):
-    # Code to show the fish encyclopedia goes here
+    """Code to show the fish encyclopedia goes here
+    """
+    # 
     pygame.init()
     pygame.mixer.init()
 
@@ -172,7 +188,9 @@ def ultimate_fish(func1,func2):
     button_margin = 20
     button_color = (0, 0, 50) # Dark Blue
 
-    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin, button_width, button_height, button_color)
+    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2,
+                    WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin, button_width,
+                    button_height, button_color)
 
     while True:
         for event in pygame.event.get():
