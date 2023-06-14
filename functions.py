@@ -103,4 +103,3 @@ def game_won(screen, window_width, window_height):
     screen.blit(score_text, position)
     music_end()
     you_won_sound()
-
