@@ -3,7 +3,7 @@ This file contains the class for the fishing
 cat player character
 '''
 import pygame
-from model import folder_search
+from functions import folder_search
 class FisherCat:
     '''
     This class contains the methods and attributes 
@@ -82,3 +82,4 @@ class FisherCat:
 
         self.bob_rect.center = (self.xpos, self.ypos + self.cast_distance)
         self.cast_distance = 0
+
