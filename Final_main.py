@@ -220,7 +220,8 @@ def start_game():
 
 def show_story():
     # Code to display the background story goes here
-    # Game code goes here
+def show_story():
+    # Code to display the background story goes here
     pygame.init()
     pygame.mixer.init()
 
@@ -235,12 +236,39 @@ def show_story():
 
 
     # Load the background image
-    bg_img = f.folder_search("misc_sprites_and_background", "background.png")
+    bg_img = folder_search("misc_sprites_and_background", "story_background.png")
     background_image = pygame.image.load(bg_img)
     # Resize the background image to fit the window
     background_image = pygame.transform.scale(background_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
+    # Button setup
+    button_width = 250
+    button_height = 50
+    button_margin = 20
+    button_color = (0, 0, 50) # Dark Blue
 
+    button = Button("Back", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 + 3.5 * button_height + 2 * button_margin, button_width, button_height, button_color)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if button.is_mouse_over():
+                    if button.text == "Back":
+                        show_encyclopedia()
+                        return
+
+        window.blit(background_image, (0, 0))
+
+        if button.is_mouse_over():
+            button.draw(window)
+        else:
+            button.draw(window)
+
+        pygame.display.flip()
+        clock.tick(60)
 
 def show_encyclopedia():
     # Code to show the fish encyclopedia goes here
