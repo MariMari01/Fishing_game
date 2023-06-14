@@ -95,7 +95,7 @@ class Rare(Fish):
 
 class UltimateCatch(Fish):
     def __init__(self, x, y):
-        super().__init__(x, y, speed=20, points=500)
+        super().__init__(x, y, speed=15, points=100)
         self.found_fish = self.image_list_from_folder("ultimate_fish_game")
         self.image = pygame.image.load(self.found_fish)
     
@@ -116,3 +116,4 @@ class UltimateCatch(Fish):
         self.position = (window_width//2, window_height//2)
         score_text = self.font.render("YOU WON", True, self.text_color)
         screen.blit(score_text, self.position)
+
