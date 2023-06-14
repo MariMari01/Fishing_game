@@ -30,7 +30,7 @@ def start_game():
     clock = pygame.time.Clock()
 
     # Change counter for testing
-    counter = 10
+    counter = 113
     font = pygame.font.SysFont(None, 36)
     text_color = (255, 255, 255)
     position = (640, 11)
@@ -75,13 +75,13 @@ def start_game():
                 counter -= 1
                 text = font.render("Time: " + str(counter), True, text_color)
             # Change scoreboard.score for testing
-            if counter <= 0 and scoreboard.score < 20:
+            if counter <= 0 and scoreboard.score < 2000:
                 pygame.time.set_timer(timer_event, 0)
                 game_is_over = True
                 f.music_end()
                 f.game_over_sound()
                 game_over.draw(window)
-            if counter <= 0 and scoreboard.score >= 20:
+            if counter <= 0 and scoreboard.score >= 2000:
                 pygame.time.set_timer(timer_event, 0)
                 game_is_over = True
                 f.game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -158,4 +158,3 @@ def start_game():
         # Control the frame rate
         clock.tick(60)
     pygame.quit()
-
