@@ -1,3 +1,6 @@
+"""Fishing Game by Sam, Sarena, and Aspen
+Misc. Functions for the game.
+"""
 
 from pathlib import Path
 from os import listdir
@@ -88,6 +91,8 @@ def cat_animation(window, x,y):
         value += 1
 
 def game_won(screen, window_width, window_height):
+    """Triggers the game won.
+    """
     font = pygame.font.SysFont("Times New Roman", 36)
     text_color = (255, 255, 255)
     position = (window_width//2, window_height//2)
@@ -95,4 +100,3 @@ def game_won(screen, window_width, window_height):
     screen.blit(score_text, position)
     music_end()
     you_won_sound()
-
