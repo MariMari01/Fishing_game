@@ -47,6 +47,17 @@ def fish_caught_sound():
     sound_effect = folder_search("sound_files", "splash_sound.wav")
     pygame.mixer.Channel(0).play(pygame.mixer.Sound(sound_effect))
 
+def game_over_sound():
+    """Plays when the user loses the game
+    """
+    sound_effect = folder_search("sound_files", "game_over_sound.wav")
+    pygame.mixer.Channel(1).play(pygame.mixer.Sound(sound_effect))
+
+def you_won_sound():
+    """Allows a splash sound to play when the function is called.
+    """
+    sound_effect = folder_search("sound_files", "you_won_sound.wav")
+    pygame.mixer.Channel(2).play(pygame.mixer.Sound(sound_effect))
 
 def cat_animation(window, x,y):
     """Animates the cat while it casts the fishing line
@@ -82,6 +93,8 @@ def game_won(screen, window_width, window_height):
     position = (window_width//2, window_height//2)
     score_text = font.render("YOU WON", True, text_color)
     screen.blit(score_text, position)
+    music_end()
+    you_won_sound()
 
 class GameOver:
     def __init__(self, window_width, window_height) -> None:
@@ -91,6 +104,7 @@ class GameOver:
 
     def draw(self,screen):
         music_end()
+        game_over_sound()
         self.score_text = self.font.render("GAME OVER", True, self.text_color)
         screen.blit(self.score_text, self.position)
 
@@ -105,7 +119,7 @@ class Scoreboard:
         self.score += points
 
     def draw(self, screen):
-        score_text = self.font.render("Score: " + str(self.score), True, self.text_color)
+        score_text = self.font.render("Score: " + str(self.score) + "/ 2000", True, self.text_color)
         screen.blit(score_text, self.position)
 
 class CastBar:
