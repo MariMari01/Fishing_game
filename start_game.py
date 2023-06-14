@@ -86,7 +86,7 @@ def start_game():
                 bg_img = f.folder_search("misc_sprites_and_background", "background.png")
                 credits_screen = cred.CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), bg_img, "credits.txt")
                 credits_screen.run()            
-                credits_screen = cred.CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), "background.png", "credits.txt")
+
                 f.Game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
 
             if counter > 0 and event.type  == pygame.KEYDOWN:
