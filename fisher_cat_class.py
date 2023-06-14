@@ -1,4 +1,4 @@
-'''
+''' Fishing Game by Sam, Sarena, and Aspen.
 This file contains the class for the fishing 
 cat player character
 '''
@@ -10,6 +10,9 @@ class FisherCat:
     of the fisher man cat
     '''
     def __init__(self,x,y, window_x, window_y) -> None:
+        """Fishing Cat.
+
+        """
         self.fishing_hook = folder_search("misc_sprites_and_background", "fishing_hook.png")
         self.fishing_bob = pygame.image.load(self.fishing_hook)
 
@@ -18,7 +21,6 @@ class FisherCat:
 
         self.rect = self.image.get_rect()
         self.bob_rect = self.fishing_bob.get_rect()
-
 
         self.xpos = x
         self.ypos = y
@@ -34,7 +36,6 @@ class FisherCat:
         screen.blit(self.fishing_bob, self.bob_rect)
         screen.blit(self.image, self.rect)
 
-
     def move_left(self):
         '''
         Moves the fisher cat left
@@ -45,7 +46,6 @@ class FisherCat:
             self.xpos -= 0.5
             self.rect.center = (self.xpos, self.ypos)
             self.bob_rect.center = (self.xpos, self.ypos)
-
 
     def move_right(self):
         '''
@@ -59,10 +59,10 @@ class FisherCat:
             self.rect.center = (self.xpos, self.ypos)
             self.bob_rect.center = (self.xpos, self.ypos)
 
-
     def reset_bob(self):
+        """Resets the bob.
+        """
         self.bob_rect.center = (self.xpos, self.ypos)
-
 
     def ready_cast(self):
         '''
@@ -74,12 +74,9 @@ class FisherCat:
         if self.cast_distance >= self.win_y - self.ypos:
             self.cast_distance = self.win_y - self.ypos - 30
 
-
     def cast(self):
         '''
         Casts the fishing rod 
         '''
-
         self.bob_rect.center = (self.xpos, self.ypos + self.cast_distance)
         self.cast_distance = 0
-
