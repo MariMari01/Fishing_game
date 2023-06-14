@@ -134,22 +134,21 @@ while run:
         window.blit(background_image, (0, 0))
 
     # Draw the fish
-    common_fish.draw(window)
-    uncommon_fish.draw(window)
-    rare_fish.draw(window)
-    ultimate_catch.draw(window)
+        common_fish.draw(window)
+        uncommon_fish.draw(window)
+        rare_fish.draw(window)
+        ultimate_catch.draw(window)
 
-    cat.draw(window)
-    castbar.draw(window)
-    castbar.fill(window)
+        cat.draw(window)
+        castbar.draw(window)
+        castbar.fill(window)
 
-    # Draw the scoreboard
-    scoreboard.draw(window)
-    window.blit(text, position)
+        # Draw the scoreboard
+        scoreboard.draw(window)
+        window.blit(text, position)
     # Update the display
     pygame.display.flip()
 
     # Control the frame rate
     clock.tick(60)
 pygame.quit()
-
