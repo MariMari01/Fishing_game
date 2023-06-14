@@ -144,7 +144,7 @@ while run:
         castbar.fill(window)
 
     # Draw the scoreboard
-    scoreboard.draw(window)
+        scoreboard.draw(window)
     window.blit(text, position)
     # Update the display
     pygame.display.flip()
