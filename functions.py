@@ -19,14 +19,17 @@ def folder_search(folder_name, file_name):
     Returns:
         str: The absolute path and file name are returned as strings.
     """
-    path = Path(folder_name)
-    abs_path = Path(path).resolve()
-    for images in listdir(abs_path):
-        if images == file_name:
-            found_image = images
-    str_abs_path = str(abs_path)
-    file_abs = str_abs_path + "/" + found_image # Concatonates the file to the absolute path
-    return file_abs
+    try:
+        path = Path(folder_name)
+        abs_path = Path(path).resolve()
+        for images in listdir(abs_path):
+            if images == file_name:
+                found_image = images
+        str_abs_path = str(abs_path)
+        file_abs = str_abs_path + "/" + found_image # Concatonates the file to the absolute path
+        return file_abs
+    except NameError:
+        return "Wrong file name"
 
 def background_music():
     """Allows the background music to play throughout the gameplay.
@@ -100,3 +103,4 @@ def game_won(screen, window_width, window_height):
     screen.blit(score_text, position)
     music_end()
     you_won_sound()
+
