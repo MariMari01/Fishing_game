@@ -1,5 +1,11 @@
+"""Fishing Game by Same, Sarena, and Aspen
+End Credits Module
+"""
+
+
 import pygame
 from pygame.locals import *
+
 
 class Credit:
     """Represents a credit entry."""
@@ -48,7 +54,7 @@ class CreditsScreen:
 
         self.font = pygame.font.SysFont("Arial", font_size)
         self.font_color = font_color
-        self.background_image = pygame.image.load(background_image).convert()  # Load the background image
+        self.background_image = pygame.image.load(background_image).convert()
         self.credits = self.load_credits(credits_file)
 
     def load_credits(self, filename):
@@ -74,7 +80,9 @@ class CreditsScreen:
         """
         credit_objects = []
         for i, line in enumerate(self.credits):
-            credit = Credit(line, self.font, self.font_color, {"centerx": self.screen.get_rect().centerx, "y": self.screen.get_rect().bottom + i * 45})
+            credit = Credit(line, self.font, self.font_color, {
+                "centerx": self.screen.get_rect().centerx, "y":
+                self.screen.get_rect().bottom + i * 45})
             credit_objects.append(credit)
         return credit_objects
 
@@ -103,8 +111,3 @@ class CreditsScreen:
 
             pygame.display.flip()
             self.clock.tick(60)
-            
-if __name__ == '__main__':
-    bg_img = f.folder_search("misc_sprites_and_background", "background.png")
-    credits_screen = CreditsScreen(800, 600, "End credits", 40, (255, 255, 255), bg_img, "credits.txt")
-    credits_screen.run()            
