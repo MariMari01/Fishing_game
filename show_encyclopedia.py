@@ -1,11 +1,15 @@
+"""Fishing game by Sam, Sarena, and Aspen
+Start Screen Encylopedia
+"""
 import pygame
 import functions as f
-from button import Button
+from classes import Button
 import encyclopedia_funcs as e
 
 
 def show_encyclopedia(func):
-    # Code to show the fish encyclopedia goes here
+    """Code to show the fish encyclopedia goes here
+    """
     pygame.init()
     pygame.mixer.init()
 
@@ -30,14 +34,24 @@ def show_encyclopedia(func):
     button_color = (0, 0, 50) # Dark Blue
 
     buttons = [
-        Button("Common Fish", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 - 2.5 * button_height - 2 * button_margin, button_width, button_height, button_color),
-        Button("Uncommon Fish", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 - 1.5 * button_height - button_margin, button_width, button_height, button_color),
-        Button("Rare Fish", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 - 0.5 * button_height, button_width, button_height, button_color),
-        Button("Ultimate Fish", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 + 0.5 * button_height + button_margin, button_width, button_height, button_color),
-        Button("Back", WINDOW_WIDTH // 2 - button_width // 2, WINDOW_HEIGHT // 2 + 1.5 * button_height + 2 * button_margin, button_width, button_height, button_color)
+        Button("Common Fish", WINDOW_WIDTH // 2 - button_width // 2,
+               WINDOW_HEIGHT // 2 - 2.5 * button_height - 2 * button_margin, button_width,
+               button_height, button_color),
+        Button("Uncommon Fish", WINDOW_WIDTH // 2 - button_width // 2,
+               WINDOW_HEIGHT // 2 - 1.5 * button_height - button_margin,
+               button_width, button_height, button_color),
+        Button("Rare Fish", WINDOW_WIDTH // 2 - button_width // 2,
+               WINDOW_HEIGHT // 2 - 0.5 * button_height, button_width,
+               button_height, button_color),
+        Button("Ultimate Fish", WINDOW_WIDTH // 2 - button_width // 2,
+               WINDOW_HEIGHT // 2 + 0.5 * button_height + button_margin,
+               button_width, button_height, button_color),
+        Button("Back", WINDOW_WIDTH // 2 - button_width // 2,
+               WINDOW_HEIGHT // 2 + 1.5 * button_height + 2 * button_margin,
+               button_width, button_height, button_color)
     ]
 
-    while True:
+    while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -67,4 +81,5 @@ def show_encyclopedia(func):
 
         pygame.display.flip()
         clock.tick(60)
+
 
