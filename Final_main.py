@@ -24,7 +24,8 @@ pygame.display.set_caption('Fish Game')
 
 # Set up for the timer functon
 clock = pygame.time.Clock()
-counter = 10
+# Change counter for testing
+counter = 113
 font = pygame.font.SysFont(None, 36)
 text_color = (255, 255, 255)
 position = (640, 11)
@@ -68,12 +69,13 @@ while run:
         elif event.type == timer_event:
             counter -= 1
             text = font.render("Time: " + str(counter), True, text_color)
-            if counter <= 0 and scoreboard.score < 100:
+            # Change scoreboard.score for testing
+            if counter <= 0 and scoreboard.score < 2000:
                 pygame.time.set_timer(timer_event, 0)
-                f.music_end()
                 game_is_over = True
                 game_over.draw(window)
-            if counter <= 0 and scoreboard.score >= 100:
+            if counter <= 0 and scoreboard.score >= 2000:
+                pygame.time.set_timer(timer_event, 0)
                 game_is_over = True
                 f.game_won(window, WINDOW_WIDTH, WINDOW_HEIGHT)
 
@@ -143,12 +145,13 @@ while run:
         castbar.draw(window)
         castbar.fill(window)
 
-        # Draw the scoreboard
+    # Draw the scoreboard
         scoreboard.draw(window)
-        window.blit(text, position)
+    window.blit(text, position)
     # Update the display
     pygame.display.flip()
 
     # Control the frame rate
     clock.tick(60)
 pygame.quit()
+
