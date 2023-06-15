@@ -24,6 +24,10 @@ def main():
     window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     run = True
     pygame.display.set_caption('Fish Game - Main Menu')
+    #Changes the icon
+    new_icon = f.folder_search("misc_sprites_and_background", "cat_sprite_1.png")
+    icon_ready = pygame.image.load(new_icon)
+    pygame.display.set_icon(icon_ready)
     clock = pygame.time.Clock()
 
     # Load the background image
